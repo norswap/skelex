@@ -1,5 +1,6 @@
 package norswap.skelex;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -18,7 +19,13 @@ public final class Skelex
     {
         Runner runner = new Runner();
         runner.add(regex);
-        runner.advance(input);
+
+        for (Object it: input) {
+            runner.advance(it);
+            if (runner.dead())
+                return new MatchStream(Stream.empty(), runner);
+        }
+
         return runner.matches();
     }
 
@@ -53,13 +60,15 @@ public final class Skelex
         Runner runner = new Runner();
         runner.add(regex);
 
-        Stream<Checkpoint> stream = input.stream()
-            .map(it -> {
-                runner.advance(it);
-                return runner.stream();
-            })
-            .flatMap(Function.identity());
+        ArrayList<Stream<Checkpoint>> streams = new ArrayList<>(input.size());
 
+        for (Object it: input) {
+            runner.advance(it);
+            if (runner.dead()) break;
+            streams.add(runner.stream());
+        }
+
+        Stream<Checkpoint> stream = streams.stream().flatMap(Function.identity());
         return new MatchStream(stream, runner);
     }
 
