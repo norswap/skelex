@@ -1,11 +1,10 @@
 package norswap.skelex;
 
-import norswap.utils.Pair;
-import java.util.ArrayList;
+import norswap.utils.Arrays;
 
 /**
  * Checkpoints are used by the {@link Runner} to record reached states ({@link State}), as well as
- * the path used to reach them (as reverse linked lists of checkpoints via {@link #transitions}).
+ * the path used to reach them (as reverse linked lists of checkpoints).
  */
 final class Checkpoint
 {
@@ -38,10 +37,23 @@ final class Checkpoint
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Records the {@link Transition} taken to reach this checkpoint as well as the checkpoint
-     * containing the state each of these transitions came from.
+     * Number of incoming transitions.
      */
-    final ArrayList<Pair<Checkpoint, Transition>> transitions = new ArrayList<>();
+    private int transition_count = 0;
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Container for {@link #transition_count} incoming transitions.
+     */
+    private Transition[] transitions = new Transition[1];
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Holds the source checkpoints for the correspond transitions in {@link #transitions}.
+     */
+    private Checkpoint[] transources = new Checkpoint[1];
 
     // ---------------------------------------------------------------------------------------------
 
@@ -55,8 +67,61 @@ final class Checkpoint
 
     // ---------------------------------------------------------------------------------------------
 
-    void add_transition (Checkpoint source, Transition transition) {
-        transitions.add(new Pair<>(source, transition));
+    /**
+     * Returns the number of incoming transitions.
+     */
+    int transition_count() {
+        return transition_count;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    Transition transition (int index) {
+        return transitions[index];
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    Checkpoint transition_source (int index) {
+        return transources[index];
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    void add_transition (Checkpoint source, Transition transition)
+    {
+        if (transition_count == transitions.length) {
+            transitions = Arrays.resize_binary_power(transitions, transition_count + 1);
+            transources = Arrays.resize_binary_power(transources, transition_count + 1);
+        }
+
+        transitions[transition_count] = transition;
+        transources[transition_count] = source;
+        ++ transition_count;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    void merge_transitions (Checkpoint other)
+    {
+        int new_count = transition_count + other.transition_count;
+
+        if (new_count > transitions.length) {
+            transitions = Arrays.resize_binary_power(transitions, new_count);
+            transources = Arrays.resize_binary_power(transources, new_count);
+        }
+
+        System.arraycopy(
+            other.transitions, 0,
+            transitions, transition_count,
+            other.transition_count);
+
+        System.arraycopy(
+            other.transources, 0,
+            transources, transition_count,
+            other.transition_count);
+
+        transition_count = new_count;
     }
 
     // ---------------------------------------------------------------------------------------------

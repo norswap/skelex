@@ -1,5 +1,6 @@
 package norswap.skelex;
 
+import norswap.utils.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -67,7 +68,7 @@ final class CheckpointMap
             map.put(checkpoint, checkpoint);
         else
             // by construction: only a single transition, which will be different from the others
-            canonical.transitions.addAll(checkpoint.transitions);
+            canonical.merge_transitions(checkpoint);
     }
 
     // ---------------------------------------------------------------------------------------------

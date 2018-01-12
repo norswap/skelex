@@ -278,11 +278,10 @@ public final class Runner
 
         ArrayList<Transition> trace = new ArrayList<>();
 
-        while (!checkpoint.transitions.isEmpty())
+        while (checkpoint.transition_count() > 0)
         {
-            Pair<Checkpoint, Transition> p = checkpoint.transitions.get(0);
-            checkpoint = p.a;
-            trace.add(p.b);
+            trace.add(checkpoint.transition(0));
+            checkpoint = checkpoint.transition_source(0);
         }
 
         Collections.reverse(trace);
