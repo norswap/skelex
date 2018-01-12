@@ -99,7 +99,7 @@ input positions and checkpoint is kept in an object of type `CheckpointMap`.
 
 Checkpoints are linked to form reverse linked lists of traversed states. A checkpoint records a
 state, the transitions and previous checkpoints that were used to reach that it, and the registration
-the registration that started these chains of checkpoints.
+that started these chains of checkpoints.
 
 For each input position, the runner keeps track of a set of checkpoints: there can only be a single
 checkpoint for a given state and registration pair. Those checkpoints always hold an anchor state.
@@ -171,7 +171,7 @@ Both `Match` and `MatchTree` objects are not constructed eagerly when input item
 rather on demand, when requested from a `MatchStream`. In both cases, the objects are generated
 from a corresponding `Checkpoint`.
 
-In particular, for `MatchTree` ther e are potentially an exponential number of trees for a single
+In particular, for `MatchTree` there are potentially an exponential number of trees for a single
 registration and input span, and it is not possible to know how to construct the preferred
 `MatchTree` object before the match completes. 
 

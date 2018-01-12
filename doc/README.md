@@ -4,7 +4,7 @@ For information about how Skelex is implemented, see the [Implementation
 Guide](/doc/implementation.md). Read the user manual first!
 
 For brevity's sake, I'm going to assume the reader is familiar with what [regular expressions]
-are, at least in the context of matching strings. Before you on, you should be able to understand
+are, at least in the context of matching strings. Before you go on, you should be able to understand
 the meaning of the regex `a*(b|c)+d?`.
 
 [regular expressions]: https://en.wikipedia.org/wiki/Regular_expression
@@ -20,7 +20,7 @@ Skelex has three peculiarities when compared with other regex-matching libraries
 
 1. It works on streams of objects, instead of streams of characters as is usual.
 
-2. It can produce fully structure matching information (~ a parse tree). Usual regex matching
+2. It can produce full structure matching information (~ a parse tree). Usual regex matching
    engines can only match flat pieces of input. For instance, the regex `(a)*`, when applied
    on the input `aaa` will only capture the last repetition of `a`. skelex, on the other hand,
    would capture a list with three occurences of `a`.
@@ -38,7 +38,7 @@ section at the bottom of the file.
 In Skelex, all regexes are modelled using subclasses of the abstract `Regex` class.
 Suclasses are found in the `norswap.skelex.regex` package.
 
-Direct instantiation is possible, although users are encouraged to resort to static methods
+Direct instantiation is possible, although users are encouraged to use static methods
 from the `DSL` class instead.
 
 By themselves, these classes only model the structure of the regular expression.
@@ -71,9 +71,9 @@ registration can have multiple matches ending at different positions.)
 In particular, `MatchStream` lets you filter the results by regex, registration and end position
 (not useful when getting `MatchStream` from a `Runner`).
 
-A `MatchStream` lets you get two kind of information (or arrangement thereof):
+A `MatchStream` lets you get two kind of matches:
 
-- `Match` objects describe the extent of amatch: that is, a
+- `Match` objects describe the extent of a match: that is, a
   `(regex, start position, end position)` triplet.
   
 - `MatchTree` objects extend `Match` with a description of how the input structurally matches the
@@ -123,7 +123,7 @@ better performances ([dk.brics.automaton] is  highly regarded). It is probably p
 Skelex to go much faster through internal optimization and/or slight interface changes, but that is
 not a priority right now.
 
-I do not know of any other libraries combining these specificities. Finding libraries that
+I do not know of any other libraries combining Skelex' three specificities. Finding libraries that
 perform regex matching on objects is hard enough, but there is at least one called [openregex].
 
 There might be full-blown [CFG] or [PEG] parsers that can offer (some of) the same capabilities, but
