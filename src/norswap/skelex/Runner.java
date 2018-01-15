@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.stream.Stream;
 
 import static norswap.skelex.Transition.*;
@@ -71,8 +72,9 @@ public final class Runner
      */
     public void advance (Object item)
     {
-        for (Checkpoint head: checkpoints.get(pos))
-            advance(head, PRE, item);
+        for (Checkpoint cp: checkpoints.get(pos))
+            if (cp.live)
+                advance(cp, PRE, item);
         input.add(item);
         ++ pos;
         assert input.size() == pos;
@@ -173,6 +175,24 @@ public final class Runner
         input.subList(pos - amount, pos).clear();
         checkpoints.clear_last(pos, amount);
         pos -= amount;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Filter the registrations that will be able to match after the current input position.
+     * <p>
+     * Feed all registration that are still able to generate new matches after the current input
+     * position to {@code pred}, if the result is {@code false}, the registration won't able to
+     * match after the current input position.
+     * <p>
+     * A negative decision can be reversed by another application of this method at the same input
+     * position, but NOT by applying this method at subsequent input positions.
+     */
+    public void filter_registrations (BiPredicate<Regex, Integer> pred)
+    {
+        for (Checkpoint cp: checkpoints.get(pos))
+            cp.live = pred.test(cp.regex, cp.start);
     }
 
     // =============================================================================================

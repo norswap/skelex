@@ -37,6 +37,13 @@ final class Checkpoint
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Whethever the checkpoint should be considered when feeding input to the runner.
+     */
+    boolean live = true;
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Number of incoming transitions.
      */
     private int transition_count = 0;
