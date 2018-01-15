@@ -29,7 +29,7 @@ public final class MatchTree extends Match
     // =============================================================================================
 
     /**
-     * A wildcard that can be used within chained index functions {@link #get(Object, int...)}.
+     * A wildcard that can be used within chained index functions {@link #_get(Object, int...)}.
      * <p>
      * Whenever the wildcard is used instead of a regular index, the result of the access is a list
      * where each item is the result of the rest of the access chain.
@@ -163,7 +163,7 @@ public final class MatchTree extends Match
      * If at some point an item cannot be cast into a list or a list is too short for the given
      * index, an exception is thrown.
      */
-    public static Object $get (Object obj, int... indices)
+    public static Object $_get (Object obj, int... indices)
     {
         int i = 0;
         while (i < indices.length)
@@ -182,7 +182,7 @@ public final class MatchTree extends Match
                 if (index == $) {
                     ArrayList<Object> out = new ArrayList<>(list.size());
                     for (Object o: list)
-                        out.add($get(o, Arrays.copyOfRange(indices, i + 1, indices.length)));
+                        out.add($_get(o, Arrays.copyOfRange(indices, i + 1, indices.length)));
                     return out;
                 }
 
@@ -199,10 +199,10 @@ public final class MatchTree extends Match
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Like {@link #$get}, but attempting to cast the result to the required type.
+     * Like {@link #$_get}, but attempting to cast the result to the required type.
      */
-    public static <T> T get(Object obj, int... indices) {
-        return cast($get(obj, indices));
+    public static <T> T _get (Object obj, int... indices) {
+        return cast($_get(obj, indices));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -213,11 +213,11 @@ public final class MatchTree extends Match
      * obtained item until all indices have been exhausted.
      * <p>
      * If at some point the function attempts to index a null value, or if a list is too short
-     * for the given index, null is returned. This is how this function differs from {@link #$get}.
+     * for the given index, null is returned. This is how this function differs from {@link #$_get}.
      * <p>
      * If at some point an item cannot be cast into a list, an exception is thrown.
      */
-    public static Object $fmap (Object obj, int... indices)
+    public static Object $_fmap (Object obj, int... indices)
     {
         int i = 0;
         while (i < indices.length)
@@ -235,7 +235,7 @@ public final class MatchTree extends Match
                 if (index == $) {
                     ArrayList<Object> out = new ArrayList<>(list.size());
                     for (Object o: list)
-                        out.add($fmap(o, Arrays.copyOfRange(indices, i + 1, indices.length)));
+                        out.add($_fmap(o, Arrays.copyOfRange(indices, i + 1, indices.length)));
                     return out;
                 }
 
@@ -257,119 +257,119 @@ public final class MatchTree extends Match
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Like {@link #$fmap}, but attempting to cast the result to the required type.
+     * Like {@link #$_fmap}, but attempting to cast the result to the required type.
      */
-    public static <T> T fmap (Object obj, int... indices) {
-        return cast($fmap(obj, indices));
+    public static <T> T _fmap (Object obj, int... indices) {
+        return cast($_fmap(obj, indices));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #$get} but attempts to cast the result to a list.
+     * Same as {@link #$_get} but attempts to cast the result to a list.
      */
-    public static List<?> get_list (Object obj, int... indices) {
-        return cast($get(obj, indices));
+    public static List<?> _get_list (Object obj, int... indices) {
+        return cast($_get(obj, indices));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #$fmap}, but attempts to cast the result to a list.
+     * Same as {@link #$_fmap}, but attempts to cast the result to a list.
      */
-    public static List<?> fmap_list (Object obj, int... indices) {
-        return cast($fmap(obj, indices));
+    public static List<?> _fmap_list (Object obj, int... indices) {
+        return cast($_fmap(obj, indices));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #$get}, but attempts to cast the result to a {@link Branch}.
+     * Same as {@link #$_get}, but attempts to cast the result to a {@link Branch}.
      */
-    public static Branch get_branch (Object obj, int... indices) {
-        return cast($get(obj, indices));
+    public static Branch _get_branch (Object obj, int... indices) {
+        return cast($_get(obj, indices));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #$get}, but attempts to cast the result to a {@link Branch}.
+     * Same as {@link #$_get}, but attempts to cast the result to a {@link Branch}.
      */
-    public static Branch fmap_branch (Object obj, int... indices) {
-        return cast($fmap(obj, indices));
+    public static Branch _fmap_branch (Object obj, int... indices) {
+        return cast($_fmap(obj, indices));
     }
 
     // =============================================================================================
     // CHAIN ACCESS FROM ROOT
 
     /**
-     * Same as {@link #$get(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #$_get(Object, int...)}, using the root of the tree as first parameter.
      */
     public Object $get (int... indices) {
-        return $get(this, indices);
+        return $_get(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #get(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_get(Object, int...)}, using the root of the tree as first parameter.
      */
     public <T> T get (int... indices) {
-        return get(this, indices);
+        return _get(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #$fmap(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #$_fmap(Object, int...)}, using the root of the tree as first parameter.
      */
     public Object $fmap (int... indices) {
-        return $fmap(this, indices);
+        return $_fmap(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #fmap(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_fmap(Object, int...)}, using the root of the tree as first parameter.
      */
     public <T> T fmap (int... indices) {
-        return fmap(this, indices);
+        return _fmap(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #get_list(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_get_list(Object, int...)}, using the root of the tree as first parameter.
      */
     public List<?> get_list (int... indices) {
-        return get_list(this, indices);
+        return _get_list(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #fmap_list(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_fmap_list(Object, int...)}, using the root of the tree as first parameter.
      */
     public List<?> fmap_list (int... indices) {
-        return fmap_list(this, indices);
+        return _fmap_list(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #get_branch(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_get_branch(Object, int...)}, using the root of the tree as first parameter.
      */
     public Branch get_branch (int... indices) {
-        return get_branch(this, indices);
+        return _get_branch(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Same as {@link #fmap_branch(Object, int...)}, using the root of the tree as first parameter.
+     * Same as {@link #_fmap_branch(Object, int...)}, using the root of the tree as first parameter.
      */
     public Branch fmap_branch (int... indices) {
-        return fmap_branch(this, indices);
+        return _fmap_branch(this, indices);
     }
 
     // ---------------------------------------------------------------------------------------------
