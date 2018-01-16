@@ -84,9 +84,9 @@ final class CheckpointMap
     {
         int size = checkpoints.size();
         if (pos - amount >= size) return;
-        int end = Math.min(size, pos);
+        int end = Math.min(size, pos + 1);
 
-        for (int i = pos - amount; i < end; ++i)
+        for (int i = pos + 1 - amount; i < end; ++i)
             checkpoints.set(i, null);
     }
 
