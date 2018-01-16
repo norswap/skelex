@@ -306,7 +306,7 @@ public final class MatchTree extends Match
      * Same as {@link #$_get(Object, int...)}, using the root of the tree as first parameter.
      */
     public Object $get (int... indices) {
-        return $_get(this, indices);
+        return $_get(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -315,7 +315,7 @@ public final class MatchTree extends Match
      * Same as {@link #_get(Object, int...)}, using the root of the tree as first parameter.
      */
     public <T> T get (int... indices) {
-        return _get(this, indices);
+        return _get(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -324,7 +324,7 @@ public final class MatchTree extends Match
      * Same as {@link #$_fmap(Object, int...)}, using the root of the tree as first parameter.
      */
     public Object $fmap (int... indices) {
-        return $_fmap(this, indices);
+        return $_fmap(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -333,7 +333,7 @@ public final class MatchTree extends Match
      * Same as {@link #_fmap(Object, int...)}, using the root of the tree as first parameter.
      */
     public <T> T fmap (int... indices) {
-        return _fmap(this, indices);
+        return _fmap(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -342,7 +342,7 @@ public final class MatchTree extends Match
      * Same as {@link #_get_list(Object, int...)}, using the root of the tree as first parameter.
      */
     public List<?> get_list (int... indices) {
-        return _get_list(this, indices);
+        return _get_list(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -351,7 +351,7 @@ public final class MatchTree extends Match
      * Same as {@link #_fmap_list(Object, int...)}, using the root of the tree as first parameter.
      */
     public List<?> fmap_list (int... indices) {
-        return _fmap_list(this, indices);
+        return _fmap_list(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -360,7 +360,7 @@ public final class MatchTree extends Match
      * Same as {@link #_get_branch(Object, int...)}, using the root of the tree as first parameter.
      */
     public Branch get_branch (int... indices) {
-        return _get_branch(this, indices);
+        return _get_branch(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -369,7 +369,7 @@ public final class MatchTree extends Match
      * Same as {@link #_fmap_branch(Object, int...)}, using the root of the tree as first parameter.
      */
     public Branch fmap_branch (int... indices) {
-        return _fmap_branch(this, indices);
+        return _fmap_branch(this.$value(), indices);
     }
 
     // ---------------------------------------------------------------------------------------------
