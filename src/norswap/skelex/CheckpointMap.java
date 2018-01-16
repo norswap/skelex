@@ -55,13 +55,16 @@ final class CheckpointMap
      */
     void add (int index, Checkpoint checkpoint)
     {
-        while (index > checkpoints.size())
+        while (index >= checkpoints.size())
             checkpoints.add(null);
 
-        if (index == checkpoints.size())
-            checkpoints.add(new LinkedHashMap<>());
+        if (checkpoints.get(index) == null)
+            checkpoints.set(index, new LinkedHashMap<>());
 
         LinkedHashMap<Checkpoint, Checkpoint> map = checkpoints.get(index);
+        if (map == null)
+            checkpoints.set(index, map = new LinkedHashMap<>());
+
         Checkpoint canonical = map.get(checkpoint);
 
         if (canonical == null)
