@@ -31,7 +31,7 @@ public final class DSL
      * Constructs a {@link Typed} regex without predicate.
      */
     public static Typed typed (Class<?> klass) {
-        return new Typed(klass, TRUE);
+        return new Typed(klass);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -5,6 +5,8 @@ import norswap.skelex.DSL;
 import norswap.utils.Predicates;
 import java.util.function.Predicate;
 
+import static norswap.utils.Predicates.TRUE;
+
 /**
  * A regex that matches objects of a certain type, that also satisfy a given predicate.
  */
@@ -21,9 +23,18 @@ public final class Typed extends Regex
     public final Predicate<Object> pred;
 
     /**
+     * Creates a {@link Typed} with the given type and a predicate that always evaluates to true.
+     * <p>
+     * Prefer using {@link DSL#typed(Class)}.
+     */
+    public Typed (Class<?> type) {
+        this(type, TRUE);
+    }
+
+    /**
      * Creates a {@link Typed} regex with the given type and predicate.
      * <p>
-     * Use {@link DSL#typed(Class)} or {@link DSL#typed(Class, Predicate)} in preference.
+     * Prefer using {@link DSL#typed(Class, Predicate)}.
      */
     public Typed (Class<?> type, Predicate<Object> pred) {
         this.type = type;
@@ -32,7 +43,7 @@ public final class Typed extends Regex
 
     @Override public String toString()
     {
-        String pred_str = pred == null ? "" : ("~" + Predicates.to_string(pred));
+        String pred_str = pred == TRUE ? "" : ("~" + Predicates.to_string(pred));
         return "typed(" + type.getSimpleName() + pred_str + ")";
     }
 }

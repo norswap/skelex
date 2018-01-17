@@ -2,9 +2,8 @@ package norswap.skelex.regex;
 
 import norswap.skelex.Regex;
 import norswap.skelex.DSL;
+import norswap.utils.Predicates;
 import java.util.function.Predicate;
-
-import static norswap.utils.Util.attempt;
 
 /**
  * A regex that matches all objects that satisfy a given predicate.
@@ -26,14 +25,9 @@ public final class Pred extends Regex
 
     @Override public String toString()
     {
-        Class<?> pred_tostring_src
-            = attempt(() -> pred.getClass().getMethod("toString").getDeclaringClass());
-
-        boolean overriden
-            = pred != null && !pred_tostring_src.equals(Object.class);
-
-        return overriden
-            ? pred.toString()
-            : "pred";
+        String pred_str =  Predicates.to_string(pred);
+        return pred_str.equals("pred")
+            ? pred_str
+            : "pred(" + pred_str + ")";
     }
 }
