@@ -189,7 +189,7 @@ public final class MatchTree extends Match
                 obj = list.get(index);
             }
             else
-                throw new IllegalArgumentException(i + "th item in the path cannot be indexed");
+                throw new IllegalArgumentException((i + 1) + "th item in the path cannot be indexed");
 
             ++i;
         }
@@ -247,7 +247,7 @@ public final class MatchTree extends Match
             else if (obj == null) // ADDITION to $get() code
                 return null;
             else
-                throw new IllegalArgumentException("item " + i + " in the path cannot be indexed");
+                throw new IllegalArgumentException((i + 1) + "th item in the path cannot be indexed");
 
             ++i;
         }
