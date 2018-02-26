@@ -14,7 +14,7 @@ import static norswap.utils.Util.cast;
  * A {@link Match} object that also records the structure of an input string matched
  * by a regular expression (a parse tree).
  * <p>
- * This object encapsulates a composite tree structure made of:
+ * This object encapsulates a composite tree structure made of <b>match nodes</b>:
  * <ul>
  *     <li>lists: matching the sub-matches in sequences and repetitions
  *         ({@link Seq}, {@link ZeroMore}, {@link OneMore})</li>
@@ -41,6 +41,9 @@ public final class MatchTree extends Match
     public static final int $ = -42;
 
     // =============================================================================================
+    // Used by the implementation to build up match trees.
+
+    // ---------------------------------------------------------------------------------------------
 
     private static final Object MARKER = new Object();
 
@@ -156,7 +159,7 @@ public final class MatchTree extends Match
     // STATIC CHAIN ACCESS
 
     /**
-     * Returns the object obtained by casting {@code obj} into a list, then getting the item
+     * Returns the match node obtained by casting {@code obj} into a list, then getting the item
      * at the first index in {@code indices}, then repeatedly applying this process on the last
      * obtained item until all indices have been exhausted.
      * <p>
@@ -208,7 +211,7 @@ public final class MatchTree extends Match
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the object obtained by casting {@code obj} into a list, then getting the item
+     * Returns the match node obtained by casting {@code obj} into a list, then getting the item
      * at the first index in {@code indices}, then repeatedly applying this process on the last
      * obtained item until all indices have been exhausted.
      * <p>

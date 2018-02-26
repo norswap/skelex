@@ -228,18 +228,6 @@ final class AutomatonBuilder
      */
     private static Automaton build_automaton (OneMore regex)
     {
-//        State     start = new State();
-//        State     mid   = new State();
-//        State     end   = new State();
-//        Automaton sub   = build_automaton(regex.item);
-//
-//        pre_transition  (start,   sub.start, (m, o) -> m.push(new ArrayList<>()));
-//        post_transition (sub.end, mid,       ACCRETE);
-//        post_transition (sub.end, end,       ACCRETE);
-//        pre_transition  (mid,     sub.start, NOOP);
-//
-//        return new Automaton(regex, start, end);
-
         State     start = new State();
         State     end   = new State();
         Automaton sub   = build_automaton(regex.item);

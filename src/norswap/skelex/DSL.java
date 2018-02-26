@@ -5,7 +5,6 @@ import norswap.skelex.dsl.*;
 import java.util.function.Predicate;
 
 import static norswap.skelex.dsl.Conversions.*;
-import static norswap.utils.Predicates.TRUE;
 import static norswap.utils.Util.cast;
 
 /**
